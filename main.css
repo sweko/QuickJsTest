@@ -1,0 +1,16 @@
+.box{
+	background-color: yellow;	
+	border: solid 2px black;
+	position: absolute;
+	float:left;
+}
+
+.circle {
+ 	background-color: green;
+	border-radius: 50%;
+	border: solid 2px black;
+	position: absolute;
+	float:left;
+}
+
+
