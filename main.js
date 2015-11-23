@@ -37,7 +37,7 @@ var game;
             this.left += this.leftDirection;
             this.top += this.topDirection;
             this.setStyle();
-            setTimeout(function () { return _this.energize(); }, 10);
+            setTimeout(function () { return _this.energize(); }, 0);
         };
         return Shape;
     })();

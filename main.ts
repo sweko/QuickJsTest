@@ -49,7 +49,7 @@ module game{
 			this.left += this.leftDirection;
 			this.top += this.topDirection;
 			this.setStyle();
-			setTimeout(() => this.energize(), 10);
+			setTimeout(() => this.energize(), 0);
 		}
 		
 	}
