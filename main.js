@@ -15,6 +15,7 @@ var game;
             this.size = Randomizer.getRandomTo(maxSize);
             this.left = center.x - this.size / 2;
             this.top = center.y - this.size / 2;
+            this.color = Randomizer.getRandomColor();
             this.setStyle();
             this.container.appendChild(this.element);
         };
@@ -23,6 +24,7 @@ var game;
             this.element.style.height = this.size + "px";
             this.element.style.top = this.top + "px";
             this.element.style.left = this.left + "px";
+            this.element.style.backgroundColor = this.color;
         };
         Shape.prototype.energize = function () {
             var _this = this;
@@ -51,12 +53,13 @@ var game;
             console.log("shaper started");
             this.container.addEventListener("click", function (event) {
                 //we're using the fact that the container is actually the body element
-                _this.createShape({ x: event.clientX, y: event.clientY }, Randomizer.getRandomTo(2));
+                _this.createShape({ x: event.clientX, y: event.clientY });
                 event.preventDefault();
             });
         };
-        Shaper.prototype.createShape = function (center, shapeIndex) {
+        Shaper.prototype.createShape = function (center) {
             console.log("creating shape @(" + center.x + "," + center.y + ")");
+            var shapeIndex = Randomizer.getRandomTo(Shaper.shapes.length);
             var shape = Shaper.shapes[shapeIndex](this.container);
             console.log(shape);
             shape.createAt(center);
@@ -64,7 +67,7 @@ var game;
         };
         Shaper.shapes = [
             function (c) { return new Shape("box", c); },
-            function (c) { return new Shape("circle", c); }
+            function (c) { return new Shape("circle", c); },
         ];
         return Shaper;
     })();

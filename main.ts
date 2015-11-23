@@ -6,6 +6,7 @@ module game{
 		private element: HTMLDivElement;
 		private leftDirection: number;
 		private topDirection: number;
+		private color:string;
 		
 		constructor(public cssClass:string, public container: HTMLElement){
 			
@@ -23,6 +24,9 @@ module game{
 			this.size = Randomizer.getRandomTo(maxSize);
 			this.left = center.x - this.size / 2;
 			this.top = center.y - this.size / 2;
+			
+			this.color = Randomizer.getRandomColor();
+			
 			this.setStyle();
 			this.container.appendChild(this.element);
 		}
@@ -32,6 +36,7 @@ module game{
 			this.element.style.height = this.size+"px";
 			this.element.style.top = this.top+"px";
 			this.element.style.left = this.left +"px";
+			this.element.style.backgroundColor = this.color;
 		}
 		
 		public energize(){
@@ -63,7 +68,7 @@ module game{
 		
 		private static shapes:[(HTMLElement)=>Shape]  = [
 			(c:HTMLElement)=> new Shape("box",c),
-			(c:HTMLElement)=> new Shape("circle", c)
+			(c:HTMLElement)=> new Shape("circle", c),
 		];
 		
 		constructor(public container: HTMLElement){
@@ -74,14 +79,15 @@ module game{
 			console.log("shaper started");
 			this.container.addEventListener("click", (event)=>{
 				//we're using the fact that the container is actually the body element
-				this.createShape({x: event.clientX, y: event.clientY}, Randomizer.getRandomTo(2));
+				this.createShape({x: event.clientX, y: event.clientY});
 				event.preventDefault();
 			})
 
 		}
 		
-		private createShape(center: IPoint, shapeIndex:number){
+		private createShape(center: IPoint){
 			console.log(`creating shape @(${center.x},${center.y})`);
+			var shapeIndex = Randomizer.getRandomTo(Shaper.shapes.length);
 			var shape = Shaper.shapes[shapeIndex](this.container);
 			console.log(shape);
 			shape.createAt(center);
